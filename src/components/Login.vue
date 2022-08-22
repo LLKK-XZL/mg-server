@@ -9,16 +9,29 @@
 </template>
 
 <script setup>
-import { defineProps, reactive } from "vue";
+import { defineProps, reactive, getCurrentInstance } from "vue";
 import { useRouter } from "vue-router";
+
 defineProps({
   msg: String,
 });
 
 const state = reactive({ count: 0 });
 const router = useRouter();
+const $request = getCurrentInstance().appContext.config.globalProperties.$request;
 const goHome = () => {
-  router.push("/welcome");
+  // router.push("/welcome");
+
+    .$request({
+      method: "get",
+      url: "/login",
+      data: {
+        name: "贺平",
+      },
+    })
+    .then((res) => {
+      console.log(res);
+    });
 };
 </script>
 
